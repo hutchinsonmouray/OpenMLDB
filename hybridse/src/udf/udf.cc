@@ -52,6 +52,26 @@ const time_t TZ_OFFSET = TZ * 3600000;
 const int MAX_ALLOC_SIZE = 2048;
 bthread_key_t B_THREAD_LOCAL_MEM_POOL_KEY;
 
+int32_t locate( hybridse::codec::StringRef substr, hybridse::codec::StringRef str,int32_t pos = 0 ) {
+    int32_t iter = pos;
+    while (iter<str.length()){
+        for (int i=0; i<substr.length();i++){
+            if (str.at(iter) == substr.at(i)) {
+                matchLength++;
+                iter++;
+                if (matchLength == substr.length()){
+                    return iter-substr.length()+1;
+                }
+            }
+            else {
+                matchLength = 0;
+                break;
+            }
+        }
+        iter++;
+    }
+    return -1;
+}
 int32_t dayofyear(int64_t ts) {
     time_t time = (ts + TZ_OFFSET) / 1000;
     struct tm t;

@@ -942,6 +942,26 @@ void DefaultUdfLibrary::InitMathUdf() {
             return nm->MakeFuncNode("ln", {cast}, nullptr);
         });
 
+    RegisterExternal("locate")
+        .args<StringRef, StringRef,int32_t>(
+            static_cast<int32_t (*)(codec::StringRef*, codec::StringRef*)>(
+                udf::v1::strcmp))
+        .doc(R"(
+            @brief Returns -1 if the substring is not found; returns the location of the first letter of the substring if found
+
+            Example:
+
+            @code{.sql}
+
+                SELECT locate('bar', 'foobarbar');
+                -- output 4
+                SELECT locate('bar', 'foobarbar', 5);
+                -- output 7
+
+            @endcode
+
+            @since 0.1.0)");
+
     RegisterExternal("log2")
         .doc(R"(
             @brief Return the base-2 logarithm of expr.
