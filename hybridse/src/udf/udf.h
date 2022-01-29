@@ -238,6 +238,8 @@ void timestamp_to_date(codec::Timestamp *timestamp,
 
 void date_to_string(codec::Date *date, hybridse::codec::StringRef *output);
 
+int32_t locate( hybridse::codec::StringRef substr, hybridse::codec::StringRef str,int32_t pos = 0 );
+
 void like(codec::StringRef *name, codec::StringRef *pattern, codec::StringRef *escape, bool *out, bool *is_null);
 void like(codec::StringRef *name, codec::StringRef *pattern, bool *out, bool *is_null);
 void ilike(codec::StringRef *name, codec::StringRef *pattern, codec::StringRef *escape, bool *out, bool *is_null);
